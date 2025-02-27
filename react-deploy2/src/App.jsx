@@ -1,19 +1,24 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import {useEffect, useState} from 'react'
 import './App.css'
 import {Link} from "react-router-dom";
-import {Dog} from "./component/Dog/index.jsx";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [data, setData] = useState();
+  useEffect(() => {
+    async function getData () {
+     const response =  await fetch("https://v2.api.noroff.dev/auction/listings")
+      const data = await response.json()
+      console.log(data.data)
+      setData(data)
+    }
+    getData()
+  }, []);
 
   return (
     <>
-      <h1>i have successfully deployed</h1>
         <Link to={"/test"}>to test page</Link>
-        <a href="/test">to test </a>
-      <Dog/>
+      <div></div>
+
     </>
   )
 }
